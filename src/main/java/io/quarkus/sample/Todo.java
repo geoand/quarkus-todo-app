@@ -1,14 +1,18 @@
 package io.quarkus.sample;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
-public class Todo extends PanacheEntity {
+public class Todo {
+
+    @Id
+    @GeneratedValue
+    public Long id;
 
     @NotBlank
     @Column(unique = true)
@@ -20,17 +24,4 @@ public class Todo extends PanacheEntity {
     public int order;
 
     public String url;
-
-    public static List<Todo> findNotCompleted() {
-        return list("completed", false);
-    }
-
-    public static List<Todo> findCompleted() {
-        return list("completed", true);
-    }
-
-    public static long deleteCompleted() {
-        return delete("completed", true);
-    }
-
 }
